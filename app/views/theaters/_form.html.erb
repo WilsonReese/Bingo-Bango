@@ -1,0 +1,32 @@
+<%= form_with(model: theater) do |form| %>
+  <% if theater.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(theater.errors.count, "error") %> prohibited this theater from being saved:</h2>
+
+      <ul>
+        <% theater.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :number_of_seats, style: "display: block" %>
+    <%= form.number_field :number_of_seats %>
+  </div>
+
+  <div>
+    <%= form.label :turnover_time, style: "display: block" %>
+    <%= form.text_field :turnover_time %>
+  </div>
+
+  <div>
+    <%= form.label :reservations_count, style: "display: block" %>
+    <%= form.number_field :reservations_count %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

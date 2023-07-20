@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Theaters</h1>
+
+<div id="theaters">
+  <% @theaters.each do |theater| %>
+    <%= render theater %>
+    <p>
+      <%= link_to "Show this theater", theater %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New theater", new_theater_path %>

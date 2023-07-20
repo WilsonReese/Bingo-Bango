@@ -9,7 +9,7 @@
 #  reservations_count     :integer          default(0)
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  user_type              :string
+#  user_type              :string           default("standard")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

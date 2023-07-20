@@ -33,7 +33,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       # t.datetime :locked_at
 
       t.string :user_type
-      t.integer :reservations_count
+      t.integer :reservations_count, default: 0
 
       t.timestamps null: false
     end

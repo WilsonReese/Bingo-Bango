@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag 'rails-ujs' %>
 
     <%= render 'shared/cdn_assets' %>
 
@@ -17,7 +18,10 @@
     <%= render 'shared/navbar'%>
 
     <div class='container' >
-
-    <%= yield %>
+      <% if notice.present? %>
+        <%= render 'shared/flash', message: notice, css_class: "success" %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

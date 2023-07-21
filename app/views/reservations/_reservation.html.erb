@@ -40,3 +40,22 @@
   </p>
 
 </div>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title" align="center">
+      <%= reservation.start_time.strftime("%B %e, %Y at %l:%M %p")%>
+    </h5>
+    <p class="card-text">
+      <ul style="list-style-type: none">
+        <li><strong>Start Time:</strong> <%= reservation.start_time.strftime("%l:%M %p")%></li>
+        <li><strong>End Time:</strong> <%= reservation.end_time.strftime("%l:%M %p")%></li>
+        <li><strong>Number of Guests:</strong> <%= reservation.number_guests%></li>
+        <li><strong>Content Choice:</strong> <%= reservation.content_choice%></li>
+      </ul>
+    </p>
+    <div class="d-grid gap-2">
+      <%= link_to "Update Reservation", edit_reservation_path(reservation), class: "btn btn-primary"%>
+    </div>
+  </div>
+</div>

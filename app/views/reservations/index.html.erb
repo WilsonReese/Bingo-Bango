@@ -1,12 +1,22 @@
-<h1>Reservations</h1>
+<div class="mt-4">
+  <% if current_user == nil %>
 
-<div id="reservations">
-  <% @reservations.each do |reservation| %>
-    <%= render reservation %>
-    <p>
-      <%= link_to "Show this reservation", reservation %>
-    </p>
+    <p>Sign in to make reservation</p>
+
+  <% else %>
+
+    <h1>Reservations</h1>
+
+    <div id="reservations">
+      <% @reservations.each do |reservation| %>
+        <%= render reservation %>
+        <p>
+          <%= link_to "Show this reservation", reservation %>
+        </p>
+      <% end %>
+    </div>
+
+    <%= link_to "New reservation", new_reservation_path %>
+
   <% end %>
 </div>
-
-<%= link_to "New reservation", new_reservation_path %>

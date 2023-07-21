@@ -1,22 +1,29 @@
 <div class="mt-4">
+  <h1>Reservations</h1>
   <% if current_user == nil %>
 
     <p>Sign in to make reservation</p>
 
   <% else %>
-
-    <h1>Reservations</h1>
-
-    <div id="reservations">
-      <% @reservations.each do |reservation| %>
-        <%= render reservation %>
-        <p>
-          <%= link_to "Show this reservation", reservation %>
-        </p>
-      <% end %>
-    </div>
+    <% if current_user.user_type == "standard" %>
+      
+      <div id="reservations">
+        <% current_user.reservations.each do |reservation| %>
+          <%= render reservation %>
+          <p>
+            <%= link_to "Show this reservation", reservation %>
+          </p>
+        <% end %>
+      </div>
 
     <%= link_to "New reservation", new_reservation_path %>
+
+    <% elsif current_user.user_type == "admin" %>
+      <%# ADMIN VIEW %>
+    <% end %>
+
+
+
 
   <% end %>
 </div>

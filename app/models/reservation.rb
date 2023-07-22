@@ -24,6 +24,9 @@ class Reservation < ApplicationRecord
   scope :upcoming_week, -> { 
     where(start_time: Time.zone.now..Time.zone.now + 7.days) 
   }
+
+  scope :future, -> { where('start_time >= ?', Time.current) }
+  scope :past, -> { where('start_time < ?', Time.current) }
   
   enum status: {
     pending: 'pending',
@@ -31,6 +34,8 @@ class Reservation < ApplicationRecord
     cancelled: 'cancelled',
     completed: 'completed'
   }
+
+
 
   private
 

@@ -25,8 +25,9 @@ class Reservation < ApplicationRecord
     where(start_time: Time.zone.now..Time.zone.now + 7.days) 
   }
 
-  scope :future, -> { where('start_time >= ?', Time.current) }
+  scope :future, -> { where('end_time >= ?', Time.current) }
   scope :past, -> { where('start_time < ?', Time.current) }
+  scope :current, -> { where('start_time <= ? AND end_time >= ?', Time.current, Time.current) }
   
   enum status: {
     pending: 'pending',

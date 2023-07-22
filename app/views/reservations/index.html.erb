@@ -12,9 +12,10 @@
             <%= render reservation %>
           <% end %>
         </div>
+      <% end %>
 
 
-      <% elsif current_user.reservations.past.any? %>
+      <% if current_user.reservations.past.any? %>
         <h2>Previous Reservations</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <% current_user.reservations.past.each do |reservation| %>

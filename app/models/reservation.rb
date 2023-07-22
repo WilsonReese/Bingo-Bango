@@ -20,6 +20,7 @@ class Reservation < ApplicationRecord
 
   validate :validate_guests_less_than_seats
   validate :no_conflicting_reservations
+  validate :start_time_must_be_in_the_future
 
   scope :upcoming_week, -> { 
     where(start_time: Time.zone.now..Time.zone.now + 7.days) 
@@ -52,5 +53,9 @@ class Reservation < ApplicationRecord
     if Reservation.where(theater_id: theater_id, start_time: start_time..end_time).exists?
       errors.add(:base, "Conflicting reservation exists for this theater and time")
     end
+  end
+
+  def start_time_must_be_in_the_future
+    errors.add(:start_time, "must be in the future") if start_time.present? && start_time < Time.current
   end
 end

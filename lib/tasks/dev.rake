@@ -61,6 +61,16 @@ task({ :sample_data => :environment }) do
     content_choice: 'New Release', 
     status: 'confirmed'
   )
+  Reservation.create(
+    user: user1, 
+    theater: theater2, 
+    start_time: DateTime.now.beginning_of_day + 22.hours, 
+    end_time: DateTime.now.beginning_of_day + 23.hours, 
+    duration: 2.0, 
+    number_guests: 6, 
+    content_choice: 'New Release', 
+    status: 'confirmed'
+  )
 
   Reservation.create(
     user: user2, 

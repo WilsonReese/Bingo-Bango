@@ -6,6 +6,18 @@
   <% else %>
     <% if current_user.user_type == "standard" %>
       <%= link_to "New reservation", new_reservation_path %>
+
+      <%# CURRENT RESERVATIONS%>
+      <% if current_user.reservations.current.any? %>
+        <h2>Current Reservation</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <% current_user.reservations.current.each do |reservation| %>
+            <%= render reservation %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <%# FUTURE RESERVATIONS %>
       <% if current_user.reservations.future.any? %>
         <h2>Upcoming Reservations</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -15,7 +27,7 @@
         </div>
       <% end %>
 
-
+      <%# PAST RESERVATIONS %>
       <% if current_user.reservations.past.any? %>
         <h2>Previous Reservations</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4">

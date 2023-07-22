@@ -10,6 +10,7 @@
           <li><strong>End Time:</strong> <%= reservation.end_time.strftime("%l:%M %p")%></li>
           <li><strong>Number of Guests:</strong> <%= reservation.number_guests%></li>
           <li><strong>Content Choice:</strong> <%= reservation.content_choice%></li>
+          <li><strong>ID:</strong> <%= reservation.id %></li>
         </ul>
       </p>
       <% if reservation.future_reservation? %>

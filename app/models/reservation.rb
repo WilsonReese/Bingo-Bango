@@ -25,8 +25,8 @@ class Reservation < ApplicationRecord
     where(start_time: Time.zone.now..Time.zone.now + 7.days) 
   }
 
-  scope :future, -> { where('end_time >= ?', Time.current) }
-  scope :past, -> { where('start_time < ?', Time.current) }
+  scope :future, -> { where('start_time >= ?', Time.current) }
+  scope :past, -> { where('end_time < ?', Time.current) }
   scope :current, -> { where('start_time <= ? AND end_time >= ?', Time.current, Time.current) }
   
   enum status: {
@@ -37,7 +37,7 @@ class Reservation < ApplicationRecord
   }
 
   def future_reservation?
-    end_time >= Time.current
+    start_time >= Time.current
   end
 
   private

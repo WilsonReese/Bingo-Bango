@@ -36,7 +36,9 @@ class Reservation < ApplicationRecord
     completed: 'completed'
   }
 
-
+  def future_reservation?
+    end_time >= Time.current
+  end
 
   private
 

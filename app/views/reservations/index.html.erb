@@ -1,5 +1,6 @@
 <div class="mt-4">
   <h1>Reservations</h1>
+  <p>Current Time: <%= Time.current.strftime("%l:%M %p") %></p>
   <% if current_user == nil %>
     <p>Sign in to make reservation</p>
   <% else %>

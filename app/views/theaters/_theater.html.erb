@@ -14,11 +14,13 @@
     <%= theater.reservations_count %>
   </p>
 
-  <h2>All Reservations:</h2>
-  <% if theater.reservations.any? %>
-    <% theater.reservations.each do |reservation|%>
-      <%= reservation.id %>
-    <% end %>
+  <h2>All Reservations For Today:</h2>
+  <% if theater.reservations_for_date(Date.today).any? %>
+    <ul>
+      <% theater.reservations_for_date(Date.today).each do |reservation|%>
+        <li><%= reservation.start_time.strftime("%B %d, %Y %I:%M %p") %></li>
+      <% end %>
+    </ul>
   <% else %>
     <p>No reservations for this theater.</p>
   <% end %>

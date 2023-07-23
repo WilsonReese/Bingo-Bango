@@ -21,6 +21,8 @@
   border: 1px solid #ccc;
   padding: 10px;
   margin-top: 20px;
+  height: 300px; /* Set the fixed height of the calendar container */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .time-slots {

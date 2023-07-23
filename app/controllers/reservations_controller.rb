@@ -12,6 +12,7 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/new
   def new
+    @theaters = Theater.all
     @reservation = Reservation.new
   end
 

@@ -36,8 +36,13 @@
   flex: 1;
 }
 
+.table-calendar th:first-child {
+  width: 100px; /* Set the width for the time column */
+}
+
 .table-calendar th {
   height: 15px; /* Adjust the height of the header row cells */
+  text-align: center;
 }
 
 .table-calendar td {

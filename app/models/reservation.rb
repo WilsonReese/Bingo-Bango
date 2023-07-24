@@ -65,7 +65,7 @@ class Reservation < ApplicationRecord
     end_time_hour = end_time.hour
     end_time_quarter = (end_time.min / 15).to_i
 
-    hour == start_time_hour && quarter == end_time_quarter
+    hour == end_time_hour && quarter == end_time_quarter
   end
 
   private

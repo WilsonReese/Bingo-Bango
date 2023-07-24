@@ -24,7 +24,7 @@
 }
 
 .table-calendar {
-  font-size: 12px; /* Adjust the font size as needed */
+  font-size: 14px; /* Adjust the font size as needed */
   border-collapse: collapse; /* Collapse cell borders to create a cleaner look */
 }
 
@@ -35,7 +35,7 @@
 }
 
 .table-calendar th {
-  height: 15px; /* Adjust the height of the header row cells */
+  height: 12px; /* Adjust the height of the header row cells */
 }
 
 .table-calendar td {

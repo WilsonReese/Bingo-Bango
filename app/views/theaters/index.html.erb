@@ -1,6 +1,8 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Theaters</h1>
+
+<div id="calendar">
+  <%= render 'shared/calendar', theaters: @theaters %>
+</div>
 
 <div id="theaters">
   <% @theaters.each do |theater| %>

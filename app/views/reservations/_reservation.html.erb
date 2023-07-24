@@ -11,6 +11,7 @@
           <li><strong>Number of Guests:</strong> <%= reservation.number_guests%></li>
           <li><strong>Content Choice:</strong> <%= reservation.content_choice%></li>
           <li><strong>Theater:</strong> <%= reservation.theater_id %></li>
+          <li><strong>User:</strong> <%= reservation.user_id %></li>
         </ul>
       </p>
       <% if reservation.future_reservation? %>

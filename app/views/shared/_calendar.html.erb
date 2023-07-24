@@ -14,33 +14,38 @@
     <thead>
       <tr>
         <th scope="col">Time</th>
-        <th scope="col">Theater <%= theater.id %></th>
+        <% @theaters.each do |theater| %>
+          <th scope="col">Theater <%= theater.id %></th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
-      <% (0..23).each do |hour| %>
+      <% (8..23).each do |hour| %>
         <% (0..3).each do |quarter| %>
           <tr>
             <th scope="row">
               <% display_hour = hour < 12 ? hour : (hour - 12) %>
               <%= display_hour == 0 ? 12 : display_hour %>:<%= format('%02d', quarter * 15) %> <%= hour < 12 ? 'AM' : 'PM' %>
             </th>
-            <% reservations = theater.reservations_for_date(Date.today) %>
-            <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
-            <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
-            <td class="<%= td_class %>">
-              <% if overlaps_with_reservation %>
-                <% reservations.each do |reservation| %>
-                  <% if reservation.overlaps_with_interval?(hour, quarter) %>
-                    <%= "Reservation ID: #{reservation.id}" %>
+            <% @theaters.each do |theater| %>
+              <% reservations = theater.reservations_for_date(Date.today) %>
+              <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
+              <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
+              <td class="<%= td_class %>">
+                <% if overlaps_with_reservation %>
+                  <% reservations.each do |reservation| %>
+                    <% if reservation.overlaps_with_interval?(hour, quarter) %>
+                      <%= "Reservation ID: #{reservation.id}" %>
+                    <% end %>
                   <% end %>
+                <% else %>
+                  Book me!
                 <% end %>
-              <% else %>
-                Book me!
-              <% end %>
-            </td>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       <% end %>
     </tbody>
   </table>
+</div>

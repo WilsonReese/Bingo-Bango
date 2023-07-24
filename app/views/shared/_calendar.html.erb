@@ -21,20 +21,22 @@
       <% (0..3).each do |quarter| %>
         <tr>
           <th scope="row">
-            <%= hour %>:<%=quarter * 15%> 
+            <%= hour %>:<%= quarter * 15 %> 
           </th>
           <% reservations = theater.reservations_for_date(Date.today) %>
-          <% if reservations.any? %>
-            <td>
+          <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
+          <% td_style = overlaps_with_reservation ? 'background-color: lightgray;' : '' %>
+          <td style="<%= td_style %>">
+            <% if overlaps_with_reservation %>
               <% reservations.each do |reservation| %>
                 <% if reservation.overlaps_with_interval?(hour, quarter) %>
-                  Reseravation ID: <%= reservation.id %>
+                  <%= "Reservation ID: #{reservation.id}" %>
                 <% end %>
               <% end %>
-            </td>
-          <% else%>
-            <td></td>
-          <% end %>
+            <% else %>
+              Book me!
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% end %>

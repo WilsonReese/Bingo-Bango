@@ -41,13 +41,6 @@ class Reservation < ApplicationRecord
     start_time >= Time.current
   end
 
-  def overlaps_with_hour?(hour)
-    (start_time.hour <= hour && end_time.hour > hour) ||
-      (start_time.hour < hour && end_time.hour >= hour) ||
-      (start_time.hour == hour && end_time.hour == hour) ||
-      (start_time.hour > hour && end_time.hour < hour + 1)
-  end
-
   def overlaps_with_interval?(hour, quarter)
     start_time_hour = start_time.hour
     start_time_quarter = (start_time.min / 15).to_i

@@ -9,36 +9,39 @@
   <p>No reservations for this theater.</p>
 <% end %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Time</th>
-      <th scope="col">Theater <%= theater.id %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% (0..23).each do |hour| %>
-      <% (0..3).each do |quarter| %>
-        <tr>
-          <th scope="row">
-            <%= hour %>:<%= quarter * 15 %> 
-          </th>
-          <% reservations = theater.reservations_for_date(Date.today) %>
-          <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
-          <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
-          <td class="<%= td_class %>">
-            <% if overlaps_with_reservation %>
-              <% reservations.each do |reservation| %>
-                <% if reservation.overlaps_with_interval?(hour, quarter) %>
-                  <%= "Reservation ID: #{reservation.id}" %>
+<div class="table-container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Theater <%= theater.id %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (0..23).each do |hour| %>
+        <% (0..3).each do |quarter| %>
+          <tr>
+            <th scope="row">
+              <% display_hour = hour < 12 ? hour : (hour - 12) %>
+              <%= display_hour == 0 ? 12 : display_hour %>:<%= format('%02d', quarter * 15) %> <%= hour < 12 ? 'AM' : 'PM' %>
+            </th>
+            <% reservations = theater.reservations_for_date(Date.today) %>
+            <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
+            <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
+            <td class="<%= td_class %>">
+              <% if overlaps_with_reservation %>
+                <% reservations.each do |reservation| %>
+                  <% if reservation.overlaps_with_interval?(hour, quarter) %>
+                    <%= "Reservation ID: #{reservation.id}" %>
+                  <% end %>
                 <% end %>
+              <% else %>
+                Book me!
               <% end %>
-            <% else %>
-              Book me!
-            <% end %>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+

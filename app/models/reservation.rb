@@ -41,6 +41,13 @@ class Reservation < ApplicationRecord
     start_time >= Time.current
   end
 
+  def overlaps_with_hour?(hour)
+    (start_time.hour <= hour && end_time.hour > hour) ||
+      (start_time.hour < hour && end_time.hour >= hour) ||
+      (start_time.hour == hour && end_time.hour == hour) ||
+      (start_time.hour > hour && end_time.hour < hour + 1)
+  end
+
   private
 
   def validate_guests_less_than_seats

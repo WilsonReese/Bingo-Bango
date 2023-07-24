@@ -15,7 +15,7 @@
  */
 
 .reserved-cell {
-  background-color: lightgray;
+  background-color: #ccc;
 }
 
 .table-container {
@@ -26,18 +26,21 @@
 .table-calendar {
   font-size: 14px; /* Adjust the font size as needed */
   border-collapse: collapse; /* Collapse cell borders to create a cleaner look */
+  width:100%
 }
 
 .table-calendar th,
 .table-calendar td {
   padding: 0px 8px; /* Adjust the padding to make the cells narrower */
   border-bottom: 1px solid #ccc;
+  flex: 1;
 }
 
 .table-calendar th {
-  height: 12px; /* Adjust the height of the header row cells */
+  height: 15px; /* Adjust the height of the header row cells */
 }
 
 .table-calendar td {
   height: 15px; /* Adjust the height of the data cells */
+  align-items: center; /* Center the content vertically */
 }

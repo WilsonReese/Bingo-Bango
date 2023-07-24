@@ -1,5 +1,3 @@
-
-
 <div class="table-container">
   <table class="table-calendar">
     <thead>
@@ -23,14 +21,12 @@
               <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
               <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
               <td class="<%= td_class %>">
-                <% if overlaps_with_reservation %>
-                  <% reservations.each do |reservation| %>
-                    <% if reservation.overlaps_with_interval?(hour, quarter) %>
-                      <%= "Reservation ID: #{reservation.id}" %>
+                <% if !overlaps_with_reservation %>
+                  <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                    <%= link_to new_reservation_path(start_time: "#{hour}:#{quarter * 15}", theater_id: theater.id) do %>
+                      <i class="fas fa-plus-circle"></i>
                     <% end %>
-                  <% end %>
-                <% else %>
-                  Book me!
+                  </div>
                 <% end %>
               </td>
             <% end %>

@@ -54,6 +54,13 @@ class Reservation < ApplicationRecord
       (start_time_hour == hour && end_time_hour == hour && start_time_quarter <= quarter && quarter < end_time_quarter)
   end
 
+  def selected_start_time?(hour, quarter)
+    start_time_hour = start_time.hour
+    start_time_quarter = (start_time.min / 15).to_i
+
+    hour == start_time_hour && quarter == start_time_quarter
+  end
+
   private
 
   def validate_guests_less_than_seats

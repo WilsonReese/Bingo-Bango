@@ -18,6 +18,10 @@
   background-color: #ccc;
 }
 
+.selected-start-time {
+  background-color: yellow; /* Or any color you want to use */
+}
+
 .table-container {
   max-height: 450px; /* Set the maximum height of the scrollable window */
   overflow-y: auto; /* Enable vertical scrolling */

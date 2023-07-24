@@ -1,6 +1,6 @@
 <h1>New reservation</h1>
 
-<%= render "shared/calendar", theaters: @theaters %>
+<%= render "shared/calendar", theaters: @theaters, start_time: @reservation.start_time, theater_id: @reservation.theater_id  %>
 
 <%= render "form", reservation: @reservation %>
 

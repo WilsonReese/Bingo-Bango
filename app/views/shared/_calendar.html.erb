@@ -25,8 +25,8 @@
           </th>
           <% reservations = theater.reservations_for_date(Date.today) %>
           <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
-          <% td_style = overlaps_with_reservation ? 'background-color: lightgray;' : '' %>
-          <td style="<%= td_style %>">
+          <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
+          <td class="<%= td_class %>">
             <% if overlaps_with_reservation %>
               <% reservations.each do |reservation| %>
                 <% if reservation.overlaps_with_interval?(hour, quarter) %>

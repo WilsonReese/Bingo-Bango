@@ -14,6 +14,8 @@ class ReservationsController < ApplicationController
   def new
     @theaters = Theater.all
     @reservation = Reservation.new
+    @reservation.start_time = params[:start_time]
+    @reservation.theater_id = params[:theater_id]
   end
 
   # GET /reservations/1/edit

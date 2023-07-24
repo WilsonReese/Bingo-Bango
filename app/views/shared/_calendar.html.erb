@@ -23,9 +23,10 @@
           <th scope="row">
             <%= hour %>:<%=quarter * 15%> 
           </th>
-          <% if theater.reservations_for_date(Date.today) %>
+          <% reservations = theater.reservations_for_date(Date.today) %>
+          <% if reservations.any? %>
             <td>
-              <% theater.reservations_for_date(Date.today).each do |reservation| %>
+              <% reservations.each do |reservation| %>
                 <% if reservation.overlaps_with_interval?(hour, quarter) %>
                   Reseravation ID: <%= reservation.id %>
                 <% end %>

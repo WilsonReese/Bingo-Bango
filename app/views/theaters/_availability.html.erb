@@ -1,0 +1,11 @@
+<h3>
+  Theater availability
+</h3>
+
+<div id="theaters">
+  <ul>
+    <% @theaters.each do |theater| %>
+      <li><%= theater.id %></li>
+    <% end %>
+  </ul>
+</div>

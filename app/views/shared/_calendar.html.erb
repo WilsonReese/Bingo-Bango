@@ -1,0 +1,41 @@
+<h2>All Reservations For Today:</h2>
+<% if theater.reservations_for_date(Date.today).any? %>
+  <ul>
+    <% theater.reservations_for_date(Date.today).each do |reservation|%>
+      <li><%= reservation.start_time.strftime("%B %d, %Y %I:%M %p") %> and <%= reservation.end_time.strftime("%B %d, %Y %I:%M %p") %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No reservations for this theater.</p>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Time</th>
+      <th scope="col">Theater <%= theater.id %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% (0..23).each do |hour| %>
+      <% (0..3).each do |quarter| %>
+        <tr>
+          <th scope="row">
+            <%= hour %>:<%=quarter * 15%> 
+          </th>
+          <% if theater.reservations_for_date(Date.today) %>
+            <td>
+              <% theater.reservations_for_date(Date.today).each do |reservation| %>
+                <% if reservation.overlaps_with_interval?(hour, quarter) %>
+                  Reseravation ID: <%= reservation.id %>
+                <% end %>
+              <% end %>
+            </td>
+          <% else%>
+            <td></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

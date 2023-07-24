@@ -1,0 +1,5 @@
+<%= form_with(model: theater, url: theaters_availability_path, method: :get) do |form| %>
+  <%= form.label :date, "Select a Date:" %>
+  <%= form.date_field :date %>
+  <%= form.submit "Check Availability" %>
+<% end %>

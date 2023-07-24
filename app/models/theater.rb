@@ -11,4 +11,8 @@
 #
 class Theater < ApplicationRecord
   has_many  :reservations, dependent: :nullify
+
+  def reservations_for_date(date)
+    self.reservations.where(start_time: date.beginning_of_day..date.end_of_day)
+  end
 end

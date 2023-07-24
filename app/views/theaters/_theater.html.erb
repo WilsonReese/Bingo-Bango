@@ -1,4 +1,5 @@
 <div id="<%= dom_id theater %>">
+  <%= render "shared/calendar", theater: theater %>
   <p>
     <strong>Number of seats:</strong>
     <%= theater.number_of_seats %>
@@ -13,5 +14,4 @@
     <strong>Reservations count:</strong>
     <%= theater.reservations_count %>
   </p>
-
 </div>

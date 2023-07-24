@@ -20,11 +20,18 @@
               <% reservations = theater.reservations_for_date(Date.today) %>
               <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
               <% td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
-              <td class="<%= td_class %> <%= 'selected-start-time' if theater.id == theater_id && @reservation.selected_start_time?(hour, quarter) %>">
+              <% td_class += 'selected-start-time' if theater.id == theater_id && @reservation.selected_start_time?(hour, quarter) %>
+              <td class="<%= td_class %>">
                 <% if !overlaps_with_reservation %>
                   <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                    <%= link_to new_reservation_path(start_time: "#{hour}:#{quarter * 15}", theater_id: theater.id) do %>
-                      <i class="fas fa-plus-circle"></i>
+                    <% if !start_time %>
+                      <%= link_to new_reservation_path(start_time: "#{hour}:#{quarter * 15}", theater_id: theater.id) do %>
+                        <i class="fas fa-plus-circle"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to new_reservation_path(start_time: start_time, theater_id: theater_id, end_time: "#{hour}:#{quarter * 15}") do %>
+                        <i class="fas fa-plus-circle"></i>
+                      <% end %>
                     <% end %>
                   </div>
                 <% end %>

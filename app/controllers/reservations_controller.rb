@@ -15,6 +15,7 @@ class ReservationsController < ApplicationController
     @theaters = Theater.all
     @reservation = Reservation.new
     @reservation.start_time = params[:start_time]
+    @reservation.end_time = params[:end_time]
     @reservation.theater_id = params[:theater_id]
   end
 

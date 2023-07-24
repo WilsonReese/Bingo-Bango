@@ -22,6 +22,10 @@
   background-color: yellow; /* Or any color you want to use */
 }
 
+.selected-end-time {
+  background-color: lightblue; /* Or any other style you want for the selected end_time cell */
+}
+
 .table-container {
   max-height: 450px; /* Set the maximum height of the scrollable window */
   overflow-y: auto; /* Enable vertical scrolling */

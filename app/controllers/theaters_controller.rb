@@ -3,7 +3,7 @@ class TheatersController < ApplicationController
 
   # GET /theaters or /theaters.json
   def index
-    @theaters = Theater.all
+    @theaters = Theater.alltoim
   end
 
   # GET /theaters/1 or /theaters/1.json

@@ -18,12 +18,8 @@
   background-color: #ccc;
 }
 
-.selected-start-time {
+.selected-time {
   background-color: yellow; /* Or any color you want to use */
-}
-
-.selected-end-time {
-  background-color: lightblue; /* Or any other style you want for the selected end_time cell */
 }
 
 .table-container {

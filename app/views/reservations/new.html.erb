@@ -1,5 +1,8 @@
 <h1>New reservation</h1>
 
+<p>Start Time: <%= @reservation.start_time.strftime("%B %e, %Y at %l:%M %p") if @reservation.start_time %></p>
+<p>End Time: <%= @reservation.end_time.strftime("%B %e, %Y at %l:%M %p") if @reservation.end_time %></p>
+
 <%= render "shared/calendar", theaters: @theaters, start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
 
 <%= render "form", reservation: @reservation %>

@@ -46,18 +46,35 @@
                           </button>
                         </div>
                       <% else %>
+                        <!-- Start Time Selected, The cell is before the current time (I AM NOT SURE THIS WORKS) -->
                         <% if start_time > time %>
                           <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
                             Available
                           </button>
                         <% end %>
+
+                        <!-- Start Time Selected, The Cell is the Start Time -->
                         <% if @reservation.selected_start_time?(hour, quarter) %>
                           <%= link_to new_reservation_path(start_time: start_time, theater_id: theater_id, end_time: "#{end_time_hour}:#{end_time_quarter * 15}") do %>
-                            <button type="button" class="btn btn-outline-primary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">
+                            <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">
                               Select End Time
                             </button>
                           <% end %>
                         <% end %>
+
+                        <!-- Start Time Selected, The cell is after the start_time -->
+                        <% if Time.new(Date.today.year, Date.today.month, Date.today.day, hour, quarter * 15) > start_time %>
+                          Select End Time
+                        <% end %>
+
+                        <!-- Start Time Selected, The cell is after the start_time -->
+                        
+
+
+
+
+
+
                       <% end %>
                     <% end %>
                   </div>
@@ -66,6 +83,7 @@
                     <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
                       Unavailable
                     </button>
+                    <%= Time.new(Date.today.year, Date.today.month, Date.today.day, hour, quarter * 15) %>
                   </div>
                 <% end %>
               </td>

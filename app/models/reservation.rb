@@ -63,7 +63,9 @@ class Reservation < ApplicationRecord
 
   def selected_end_time?(hour, quarter)
     end_time_hour = end_time.hour
-    end_time_quarter = (end_time.min / 15).to_i
+    end_time_quarter = (end_time.min / 15).to_i - 1
+    end_time_hour -= 1 if end_time_quarter == -1
+    end_time_quarter = 3 if end_time_quarter == -1
 
     hour == end_time_hour && quarter == end_time_quarter
   end

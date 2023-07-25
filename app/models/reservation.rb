@@ -76,23 +76,6 @@ class Reservation < ApplicationRecord
     hour == end_time_hour && quarter == end_time_quarter
   end
 
-  def between_start_and_end_times?(hour, quarter)
-    if start_time && end_time
-      start_hour = start_time.hour
-      start_quarter = (start_time.min / 15).to_i
-
-      end_hour = end_time.hour
-      end_quarter = (end_time.min / 15).to_i
-
-      (start_hour < hour && hour < end_hour) ||
-        (start_hour == hour && start_quarter <= quarter && quarter < 4) ||
-        (end_hour == hour && end_quarter > quarter && quarter >= 0) ||
-        (start_hour == hour && end_hour == hour && start_quarter <= quarter && quarter < end_quarter)
-    else
-      false
-    end
-  end
-
   private
 
   def validate_guests_less_than_seats

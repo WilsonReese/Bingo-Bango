@@ -1,3 +1,17 @@
+<!-- Error Message -->
+<% if @reservation.errors.any? %>
+  <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+    <strong><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</strong> 
+    <ul>
+      <% @reservation.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+
 <h1>New reservation</h1>
 
 <div>
@@ -12,12 +26,15 @@
     <div class="col">
       <% if @reservation.start_time %>
         <div>Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
+        <% if @reservation.end_time %>
+          <div>End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
+          <div><strong>Fill out the remainder of your reservation info!</strong></div>
+        <% else %>
+          <div><strong>Select an available time for the end of your reservation.</strong></div>
+        <% end %>
       <% else %>
-        <div>Select an available time for the start of your reservation.</div>
-      <% end %>
-      <% if @reservation.end_time %>
-        <div>End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
-      <% end %>
+        <div><strong>Select an available time for the start of your reservation.</strong></div>
+      <% end %></strong>
 
       <%= render "form", reservation: @reservation %>
     </div>

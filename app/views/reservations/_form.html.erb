@@ -1,15 +1,4 @@
 <%= form_with(model: reservation) do |form| %>
-  <% if reservation.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
-
-      <ul>
-        <% reservation.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div>
     <%= form.hidden_field :theater_id %>
@@ -37,13 +26,13 @@
   <% if @reservation.end_time %>
     <div>
       <%= form.label :content_choice, style: "display: block" %>
-      <%= form.select :content_choice, options_for_select(Reservation.content_choices.values.map(&:humanize), @reservation.content_choice) %>
+      <%= form.select :content_choice, options_for_select(Reservation.content_choices.map { |key, value| [key.humanize, Reservation.content_choices.key(value)]}, @reservation.content_choice) %>
     </div>
   <% end %>
 
   <% if @reservation.end_time %>
     <div>
-      <%= form.submit %>
+      <%= form.submit "Reserve Your Theater"%>
     </div>
   <% end %>
 <% end %>

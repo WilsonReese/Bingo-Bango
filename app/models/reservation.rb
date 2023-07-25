@@ -37,6 +37,12 @@ class Reservation < ApplicationRecord
     completed: 'completed'
   }
 
+  enum content_choice: {
+    byoc: 'BYOC',
+    physical: 'Physical',
+    new_release: 'New Release',
+  }
+
   def future_reservation?
     start_time >= Time.current
   end

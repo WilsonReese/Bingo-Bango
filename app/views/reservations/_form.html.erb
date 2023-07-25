@@ -12,45 +12,38 @@
   <% end %>
 
   <div>
-    <%= form.label :theater_id, style: "display: block" %>
-    <%= form.number_field :theater_id %>
+    <%= form.hidden_field :theater_id %>
   </div>
 
   <div>
-    <%= render "theaters/availability" %>
+    <%= form.hidden_field :status %>
   </div>
 
   <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.hidden_field :start_time %>
   </div>
 
   <div>
-    <%= form.label :start_time, style: "display: block" %>
-    <%= form.datetime_field :start_time %>
+    <%= form.hidden_field :end_time %>
   </div>
 
-  <div>
-    <%= form.label :end_time, style: "display: block" %>
-    <%= form.datetime_field :end_time %>
-  </div>
+  <% if @reservation.end_time %>
+    <div>
+      <%= form.label :number_guests, style: "display: block" %>
+      <%= form.select :number_guests, options_for_select(1..reservation.theater.number_of_seats) %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= form.label :duration, style: "display: block" %>
-    <%= form.text_field :duration %>
-  </div>
+  <% if @reservation.end_time %>
+    <div>
+      <%= form.label :content_choice, style: "display: block" %>
+      <%= form.select :content_choice, options_for_select(Reservation.content_choices.values.map(&:humanize), @reservation.content_choice) %>
+    </div>
+  <% end %>
 
-  <div>
-    <%= form.label :number_guests, style: "display: block" %>
-    <%= form.number_field :number_guests %>
-  </div>
-
-  <div>
-    <%= form.label :content_choice, style: "display: block" %>
-    <%= form.text_field :content_choice %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+  <% if @reservation.end_time %>
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
 <% end %>

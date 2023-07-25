@@ -26,6 +26,7 @@ class ReservationsController < ApplicationController
   # POST /reservations or /reservations.json
   def create
     @reservation = current_user.reservations.build(reservation_params)
+    @reservation.duration = (@reservation.end_time - @reservation.start_time)/60
 
     respond_to do |format|
       if @reservation.save

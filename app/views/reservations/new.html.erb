@@ -1,13 +1,25 @@
 <h1>New reservation</h1>
 
+<div>
+  Current Time: <%= Time.current.strftime("%l:%M %p") %>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col">
       <%= render "shared/calendar", theaters: @theaters, start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
     </div>
     <div class="col">
-      <p>Start Time: <%= @reservation.start_time.strftime("%B %e, %Y at %l:%M %p") if @reservation.start_time %></p>
-      <p>End Time: <%= @reservation.end_time.strftime("%B %e, %Y at %l:%M %p") if @reservation.end_time %></p>
+      <% if @reservation.start_time %>
+        <div>Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
+      <% else %>
+        <div>Select an available time for the start of your reservation.</div>
+      <% end %>
+      <% if @reservation.end_time %>
+        <div>End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
+      <% end %>
+
+      <%= render "form", reservation: @reservation %>
     </div>
   </div>
 </div>
@@ -15,7 +27,7 @@
 
 
 
-<%= render "form", reservation: @reservation %>
+
 
 <br>
 

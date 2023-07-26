@@ -64,7 +64,11 @@
 
                         <!-- Start Time Selected, The cell is after the start_time -->
                         <% if Time.new(Date.today.year, Date.today.month, Date.today.day, hour, quarter * 15) > start_time %>
-                          Select End Time
+                          <%= link_to new_reservation_path(start_time: start_time, theater_id: theater_id, end_time: "#{end_time_hour}:#{end_time_quarter * 15}") do %>
+                            <button type="button" class="btn btn-outline-primary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">
+                              Select End Time
+                            </button>
+                          <% end %>
                         <% end %>
 
                         <!-- Start Time Selected, The cell is after the start_time -->

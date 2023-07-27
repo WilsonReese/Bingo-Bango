@@ -20,10 +20,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col">
-      <%= render "shared/calendar", theaters: @theaters, start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
-    </div>
-    <div class="col">
+    <div class="col-md-3">
       <% if @reservation.start_time %>
         <div>Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
         <% if @reservation.end_time %>
@@ -37,6 +34,9 @@
       <% end %></strong>
 
       <%= render "form", reservation: @reservation %>
+    </div>
+    <div class="col-md-9">
+      <%= render "shared/calendar", theaters: @theaters, start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
     </div>
   </div>
 </div>

@@ -28,7 +28,7 @@
 }
 
 .table-calendar {
-  font-size: 14px; /* Adjust the font size as needed */
+  font-size: 10px; /* Adjust the font size as needed */
   border-collapse: collapse; /* Collapse cell borders to create a cleaner look */
   width:100%
 }
@@ -41,15 +41,15 @@
 }
 
 .table-calendar th:first-child {
-  width: 100px; /* Set the width for the time column */
+
 }
 
 .table-calendar th {
-  height: 15px; /* Adjust the height of the header row cells */
+  height: 8px; /* Adjust the height of the header row cells */
   text-align: center;
 }
 
 .table-calendar td {
-  height: 15px; /* Adjust the height of the data cells */
+  height: 8px; /* Adjust the height of the data cells */
   align-items: center; /* Center the content vertically */
 }

@@ -22,13 +22,13 @@
               <td>
                 <% if !theater.interval_reserved?(hour, quarter) && !(time < Time.current) %>
                   <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
-                    <% if !start_time %>
+                    <% if !start_time && !end_time %>
                       <%= link_to new_reservation_path(start_time: "#{hour}:#{quarter * 15}", theater_id: theater.id) do %>
                         <button type="button" class="btn btn-outline-primary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">
                           Available
                         </button>
                       <% end %>
-                    <% else %>
+                    <% elsif start_time && !end_time %>
                       <% end_time_hour = hour %>
                       <% end_time_quarter = quarter + 1 %>
                       <% end_time_hour += 1 if end_time_quarter == 4 %>
@@ -62,6 +62,7 @@
                             Available
                           </button>
                         <% end %>
+                        
                         <!-- Start Time Selected, The cell is after the start_time -->
                         <% if !(theater.next_reservation_after(start_time).start_time < time) && time > start_time %>
                           <%= link_to new_reservation_path(start_time: start_time, theater_id: theater_id, end_time: "#{end_time_hour}:#{end_time_quarter * 15}") do %>
@@ -70,6 +71,47 @@
                             </button>
                           <% end %>
                         <% end %>
+
+                      <% end %>
+                    <!-- After End time is Selected -->
+                    <% else %>
+                      <% end_time_hour = hour %>
+                      <% end_time_quarter = quarter + 1 %>
+                      <% end_time_hour += 1 if end_time_quarter == 4 %>
+                      <% end_time_quarter = 0 if end_time_quarter == 4%>
+                      <% if theater.id != theater_id %>
+                        <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+                          <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
+                            Available
+                          </button>
+                        </div>
+                      <% else %>
+                        <!-- Start time is after the current time, time is available but unselectable -->
+                        <% if start_time > time %>
+                          <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
+                            Available
+                          </button>
+                        <% end %>
+
+                        <!-- interval (time) is start time or later AND interval (next_time) is end time or earlier -->
+                        <% if time >= start_time && next_time <= end_time %>
+                          Selected
+                        <% end %>
+
+                        <!-- interval is after end_time && before next reservation -->
+                        <% if time < theater.next_reservation_after(end_time).start_time && time >= end_time %>
+                          Before Reservation
+                        <% end %>
+
+                        <% if !(time < theater.next_reservation_after(end_time).start_time) && time >= end_time %>
+                          After Reservation
+                        <% end %>
+
+
+
+
+
+
 
                       <% end %>
                     <% end %>

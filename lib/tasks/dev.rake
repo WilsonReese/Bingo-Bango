@@ -100,5 +100,17 @@ task({ :sample_data => :environment }) do
     duration: 1.0, 
     number_guests: 2, 
     content_choice: 'BYOC', 
-    status: 'confirmed')
+    status: 'confirmed'
+  )
+  Reservation.create(
+    user: user2, 
+    theater: theater2, 
+    start_time: Time.zone.local(2023, 7, 28, 22, 0), # July 28, 2023, 10:00 PM
+    end_time: Time.zone.local(2023, 7, 28, 22, 15), # July 28, 2023, 10:15 PM
+    duration: 1.0, 
+    number_guests: 2, 
+    content_choice: 'BYOC', 
+    status: 'confirmed'
+  )
+  
 end

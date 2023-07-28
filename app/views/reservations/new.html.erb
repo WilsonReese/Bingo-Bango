@@ -15,7 +15,7 @@
 <h1>New reservation</h1>
 
 <div>
-  Current Time: <%= Time.current.strftime("%l:%M %p") %>
+  Current Time: <%= Time.current.strftime("%l:%M %p %b %d") %>
 </div>
 
 <div class="container">
@@ -36,7 +36,7 @@
       <%= render "form", reservation: @reservation %>
     </div>
     <div class="col-md-9">
-      <%= render "shared/calendar", theaters: @theaters, start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
+      <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
     </div>
   </div>
 </div>

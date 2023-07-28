@@ -24,7 +24,8 @@
               <%= display_next_hour == 0 ? 12 : display_next_hour %>:<%= format('%02d', next_time.min) %> <%= next_time.hour < 12 ? 'AM' : 'PM' %>
             </th>
             <% @theaters.each do |theater| %>
-              <% reservations = theater.reservations_for_date(Date.today) %>
+              <% reservations = theater.reservations_for_date(Time.current.to_date) %>
+              
               <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
               <%# td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
               <%# td_class = 'reserved-cell' if time < Time.current %>
@@ -71,7 +72,7 @@
                         <% end %>
 
                         <!-- Start Time Selected, The cell is after the start_time -->
-                        <% if Time.new(Date.today.year, Date.today.month, Date.today.day, hour, quarter * 15) > start_time %>
+                        <% if Time.new(Time.current.to_date.year, Time.current.to_date.month, Time.current.to_date.day, hour, quarter * 15) > start_time %>
                           <%= link_to new_reservation_path(start_time: start_time, theater_id: theater_id, end_time: "#{end_time_hour}:#{end_time_quarter * 15}") do %>
                             <button type="button" class="btn btn-outline-primary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">
                               Select End Time
@@ -95,7 +96,7 @@
                     <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
                       Unavailable
                     </button>
-                    <%= Time.new(Date.today.year, Date.today.month, Date.today.day, hour, quarter * 15) %>
+                    <%= Time.new(Time.current.to_date.year, Time.current.to_date.month, Time.current.to_date.day, hour, quarter * 15) %>
                   </div>
                 <% end %>
               </td>

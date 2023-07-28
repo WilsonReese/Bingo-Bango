@@ -24,7 +24,7 @@ class Theater < ApplicationRecord
   end
 
   def next_reservation_after(time)
-    reservations.where("start_time > ?", time).order(:start_time).first
+    reservations.where("start_time >= ?", time).order(:start_time).first
   end
 
 end

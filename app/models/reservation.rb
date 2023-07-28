@@ -37,21 +37,51 @@ class Reservation < ApplicationRecord
     completed: 'completed'
   }
 
+  enum content_choice: {
+    byoc: 'BYOC',
+    physical: 'Physical',
+    new_release: 'New Release',
+  }
+
   def future_reservation?
     start_time >= Time.current
   end
 
-  def overlaps_with_interval?(hour, quarter)
+  # def overlaps_with_interval?(hour, quarter)
+  #   start_date = start_time.to_date
+  #   end_date = end_time.to_date
+  
+  #   start_time_hour = start_time.hour
+  #   start_time_quarter = (start_time.min / 15).to_i
+  
+  #   end_time_hour = end_time.hour
+  #   end_time_quarter = (end_time.min / 15).to_i
+  
+  #   if start_date == end_date
+  #     return (start_time_hour == hour && start_time_quarter <= quarter && quarter < end_time_quarter)
+  #   else
+  #     return (
+  #       (start_time_hour == hour && start_time_quarter <= quarter) ||
+  #       (end_time_hour == hour && end_time_quarter > quarter) ||
+  #       (start_time_hour < hour && hour < end_time_hour)
+  #     )
+  #   end
+  # end
+
+  def selected_start_time?(hour, quarter)
     start_time_hour = start_time.hour
     start_time_quarter = (start_time.min / 15).to_i
 
-    end_time_hour = end_time.hour
-    end_time_quarter = (end_time.min / 15).to_i
+    hour == start_time_hour && quarter == start_time_quarter
+  end
 
-    (start_time_hour < hour && hour < end_time_hour) ||
-      (start_time_hour == hour && start_time_quarter <= quarter && quarter < 4) ||
-      (end_time_hour == hour && end_time_quarter > quarter && quarter >= 0) ||
-      (start_time_hour == hour && end_time_hour == hour && start_time_quarter <= quarter && quarter < end_time_quarter)
+  def selected_end_time?(hour, quarter)
+    end_time_hour = end_time.hour
+    end_time_quarter = (end_time.min / 15).to_i - 1
+    end_time_hour -= 1 if end_time_quarter == -1
+    end_time_quarter = 3 if end_time_quarter == -1
+
+    hour == end_time_hour && quarter == end_time_quarter
   end
 
   private
@@ -63,7 +93,13 @@ class Reservation < ApplicationRecord
   end
 
   def no_conflicting_reservations
-    if Reservation.where(theater_id: theater_id, start_time: start_time..end_time).exists?
+    conflicting_reservations = Reservation.where(theater_id: theater_id)
+                                         .where('start_time < ? AND end_time > ?', end_time, start_time)
+    conflicting_reservations = conflicting_reservations.or(Reservation.where(theater_id: theater_id)
+                                                                   .where('start_time = ? OR end_time = ?', start_time, end_time))
+    conflicting_reservations = conflicting_reservations.where.not(id: id) if persisted?
+    
+    if conflicting_reservations.exists?
       errors.add(:base, "Conflicting reservation exists for this theater and time")
     end
   end

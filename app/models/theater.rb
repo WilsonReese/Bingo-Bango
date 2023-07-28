@@ -15,4 +15,16 @@ class Theater < ApplicationRecord
   def reservations_for_date(date)
     self.reservations.where(start_time: date.beginning_of_day..date.end_of_day)
   end
+
+  def interval_reserved?(hour, quarter)
+    start_time = Time.current.change(hour: hour, min: quarter * 15)
+    end_time = start_time + 15.minutes
+
+    reservations.where("start_time < ? AND end_time > ?", end_time, start_time).exists?
+  end
+
+  def next_reservation_after(time)
+    reservations.where("start_time >= ?", time).order(:start_time).first
+  end
+
 end

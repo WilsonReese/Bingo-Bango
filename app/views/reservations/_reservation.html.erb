@@ -9,7 +9,7 @@
           <li><strong>Start Time:</strong> <%= reservation.start_time.strftime("%l:%M %p")%></li>
           <li><strong>End Time:</strong> <%= reservation.end_time.strftime("%l:%M %p")%></li>
           <li><strong>Number of Guests:</strong> <%= reservation.number_guests%></li>
-          <li><strong>Content Choice:</strong> <%= reservation.content_choice%></li>
+          <li><strong>Content Choice:</strong> <%= reservation.content_choice.humanize%></li>
           <li><strong>Theater:</strong> <%= reservation.theater_id %></li>
           <li><strong>User:</strong> <%= reservation.user_id %></li>
         </ul>

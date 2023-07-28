@@ -1,5 +1,16 @@
 <div id="<%= dom_id theater %>">
-  <%= render "shared/calendar", theater: theater %>
+
+  <h2>All Reservations For Today:</h2>
+  <% if theater.reservations_for_date(Date.today).any? %>
+    <ul>
+      <% theater.reservations_for_date(Date.today).each do |reservation|%>
+        <li><%= reservation.start_time.strftime("%B %d, %Y %I:%M %p") %> and <%= reservation.end_time.strftime("%B %d, %Y %I:%M %p") %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No reservations for this theater.</p>
+  <% end %>
+
   <p>
     <strong>Number of seats:</strong>
     <%= theater.number_of_seats %>

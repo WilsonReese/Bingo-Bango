@@ -14,24 +14,38 @@
  *= require_self
  */
 
- .day-view {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-top: 20px;
-  height: 300px; /* Set the fixed height of the calendar container */
+.reserved-cell {
+  background-color: #ccc;
+}
+
+.selected-time {
+  background-color: yellow; /* Or any color you want to use */
+}
+
+.table-container {
+  max-height: 450px; /* Set the maximum height of the scrollable window */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.time-slots {
-  display: flex;
-  flex-direction: column;
+.table-calendar {
+  font-size: 10px; /* Adjust the font size as needed */
+  border-collapse: collapse; /* Collapse cell borders to create a cleaner look */
+  width:100%
 }
 
-.time-slot {
+.table-calendar th,
+.table-calendar td {
+  padding: 0px 8px; /* Adjust the padding to make the cells narrower */
+  border-bottom: 1px solid #ccc;
   flex: 1;
-  border: 1px solid #ccc;
-  padding: 5px;
+}
+
+.table-calendar th {
+  height: 8px; /* Adjust the height of the header row cells */
+  text-align: center;
+}
+
+.table-calendar td {
+  height: 8px; /* Adjust the height of the data cells */
+  align-items: center; /* Center the content vertically */
 }

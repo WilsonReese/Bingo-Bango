@@ -1,4 +1,5 @@
 class ReservationsController < ApplicationController
+  include CalendarHelper
   before_action :set_reservation, only: %i[ show edit update destroy ]
 
   # GET /reservations or /reservations.json

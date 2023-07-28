@@ -8,12 +8,13 @@
         <% end %>
       </tr>
     </thead>
-    <tbody>
+    <tbody >
       <% (10..23).each do |hour| %>
         <% (0..3).each do |quarter| %>
           <% time = Time.current.change(hour: hour, min: quarter * 15) %>
           <% next_time = time + 15.minutes %>
           <tr>
+            <% puts "Time Slot: #{time} - #{next_time}" %>
             <th scope="row">
               <% display_hour = hour < 12 ? hour : (hour - 12) %>
               <%= display_hour == 0 ? 12 : display_hour %>:<%= format('%02d', quarter * 15) %> <%= hour < 12 ? 'AM' : 'PM' %>
@@ -31,6 +32,8 @@
               <% td_class = ' selected-time' if theater.id == theater_id && end_time && @reservation.selected_end_time?(hour, quarter)%>
               <%# td_class += ' selected-time' if theater.id == theater_id && start_time && end_time && @reservation.overlaps_with_interval?(hour, quarter) %>
               <td class="<%= td_class %>">
+                <% reservations_for_time_slot = reservations.select { |r| r.overlaps_with_interval?(hour, quarter) } %>
+                <% puts "Reservations for Time Slot: #{reservations_for_time_slot.map { |r| "#{r.start_time} - #{r.end_time}" }}" %>
                 <% if !overlaps_with_reservation && !(time < Time.current) %>
                   <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                     <% if !start_time %>

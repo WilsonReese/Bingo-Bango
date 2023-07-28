@@ -56,22 +56,20 @@
                           <% end %>
                         <% end %>
 
+                        <!-- Start Time Selected, The cell is after the start_time and after a reservation -->
+                        <% if theater.next_reservation_after(start_time).start_time < time && time > start_time %>
+                          <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
+                            Available
+                          </button>
+                        <% end %>
                         <!-- Start Time Selected, The cell is after the start_time -->
-                        <% if Time.new(Time.current.to_date.year, Time.current.to_date.month, Time.current.to_date.day, hour, quarter * 15) > start_time %>
+                        <% if !(theater.next_reservation_after(start_time).start_time < time) && time > start_time %>
                           <%= link_to new_reservation_path(start_time: start_time, theater_id: theater_id, end_time: "#{end_time_hour}:#{end_time_quarter * 15}") do %>
                             <button type="button" class="btn btn-outline-primary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;">
                               Select End Time
                             </button>
                           <% end %>
                         <% end %>
-
-                        <!-- Start Time Selected, The cell is after the start_time -->
-                        
-
-
-
-
-
 
                       <% end %>
                     <% end %>
@@ -81,7 +79,6 @@
                     <button type="button" class="btn btn-outline-secondary" style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;" disabled>
                       Unavailable
                     </button>
-                    <%= Time.new(Time.current.to_date.year, Time.current.to_date.month, Time.current.to_date.day, hour, quarter * 15) %>
                   </div>
                 <% end %>
               </td>

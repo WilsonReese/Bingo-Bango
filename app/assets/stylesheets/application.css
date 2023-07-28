@@ -40,10 +40,6 @@
   flex: 1;
 }
 
-.table-calendar th:first-child {
-
-}
-
 .table-calendar th {
   height: 8px; /* Adjust the height of the header row cells */
   text-align: center;

@@ -47,26 +47,26 @@ class Reservation < ApplicationRecord
     start_time >= Time.current
   end
 
-  def overlaps_with_interval?(hour, quarter)
-    start_date = start_time.to_date
-    end_date = end_time.to_date
+  # def overlaps_with_interval?(hour, quarter)
+  #   start_date = start_time.to_date
+  #   end_date = end_time.to_date
   
-    start_time_hour = start_time.hour
-    start_time_quarter = (start_time.min / 15).to_i
+  #   start_time_hour = start_time.hour
+  #   start_time_quarter = (start_time.min / 15).to_i
   
-    end_time_hour = end_time.hour
-    end_time_quarter = (end_time.min / 15).to_i
+  #   end_time_hour = end_time.hour
+  #   end_time_quarter = (end_time.min / 15).to_i
   
-    if start_date == end_date
-      return (start_time_hour == hour && start_time_quarter <= quarter && quarter < end_time_quarter)
-    else
-      return (
-        (start_time_hour == hour && start_time_quarter <= quarter) ||
-        (end_time_hour == hour && end_time_quarter > quarter) ||
-        (start_time_hour < hour && hour < end_time_hour)
-      )
-    end
-  end
+  #   if start_date == end_date
+  #     return (start_time_hour == hour && start_time_quarter <= quarter && quarter < end_time_quarter)
+  #   else
+  #     return (
+  #       (start_time_hour == hour && start_time_quarter <= quarter) ||
+  #       (end_time_hour == hour && end_time_quarter > quarter) ||
+  #       (start_time_hour < hour && hour < end_time_hour)
+  #     )
+  #   end
+  # end
 
   def selected_start_time?(hour, quarter)
     start_time_hour = start_time.hour

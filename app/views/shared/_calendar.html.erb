@@ -14,28 +14,13 @@
           <% time = Time.current.change(hour: hour, min: quarter * 15) %>
           <% next_time = time + 15.minutes %>
           <tr>
-            <% puts "Time Slot: #{time} - #{next_time}" %>
             <th scope="row">
-              <% display_hour = hour < 12 ? hour : (hour - 12) %>
-              <%= display_hour == 0 ? 12 : display_hour %>:<%= format('%02d', quarter * 15) %> <%= hour < 12 ? 'AM' : 'PM' %>
-              -
-              <% next_time = time + 15.minutes %>
-              <% display_next_hour = next_time.hour < 12 ? next_time.hour : (next_time.hour - 12) %>
-              <%= display_next_hour == 0 ? 12 : display_next_hour %>:<%= format('%02d', next_time.min) %> <%= next_time.hour < 12 ? 'AM' : 'PM' %>
+              <%= time.strftime("%l:%M %p - ") %>
+              <%= next_time.strftime("%l:%M %p") %>
             </th>
             <% @theaters.each do |theater| %>
-              <% reservations = theater.reservations_for_date(Time.current.to_date) %>
-              
-              <% overlaps_with_reservation = reservations.any? { |r| r.overlaps_with_interval?(hour, quarter) } %>
-              <%# td_class = overlaps_with_reservation ? 'reserved-cell' : '' %>
-              <%# td_class = 'reserved-cell' if time < Time.current %>
-              <% td_class = ' selected-time' if theater.id == theater_id && @reservation.selected_start_time?(hour, quarter) %>
-              <% td_class = ' selected-time' if theater.id == theater_id && end_time && @reservation.selected_end_time?(hour, quarter)%>
-              <%# td_class += ' selected-time' if theater.id == theater_id && start_time && end_time && @reservation.overlaps_with_interval?(hour, quarter) %>
-              <td class="<%= td_class %>">
-                <% reservations_for_time_slot = reservations.select { |r| r.overlaps_with_interval?(hour, quarter) } %>
-                <% puts "Reservations for Time Slot: #{reservations_for_time_slot.map { |r| "#{r.start_time} - #{r.end_time}" }}" %>
-                <% if !overlaps_with_reservation && !(time < Time.current) %>
+              <td>
+                <% if !theater.interval_reserved?(hour, quarter) && !(time < Time.current) %>
                   <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
                     <% if !start_time %>
                       <%= link_to new_reservation_path(start_time: "#{hour}:#{quarter * 15}", theater_id: theater.id) do %>

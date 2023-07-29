@@ -27,7 +27,7 @@
         <% if @reservation.end_time %>
           <div>2. End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
           <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
-          <div class="mt-2"><strong>3. Fill out the remainder of your reservation.</strong></div>
+          <div class="mt-2 mb-2"><strong>3. Fill out the remainder of your reservation.</strong></div>
           <div>
             <%= render "form", reservation: @reservation %>
           </div>

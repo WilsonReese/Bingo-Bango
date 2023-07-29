@@ -17,22 +17,21 @@
   </div>
 
   <% if @reservation.end_time %>
-    <div>
-      <%= form.label :number_guests, style: "display: block" %>
-      <%= form.select :number_guests, options_for_select(1..reservation.theater.number_of_seats) %>
+    <div class="row">
+      <div class="col-md-3">
+        <%= form.label :number_guests, "Number of Guests", class: 'form-label' %>
+        <%= form.select :number_guests, options_for_select(1..reservation.theater.number_of_seats), {}, class: 'form-select' %>
+      </div>
+      <div class="col-md-9">
+        <%= form.label :content_choice, class: 'form-label' %>
+        <%= form.select :content_choice, options_for_select(Reservation.content_choices.map { |key, value| [key.humanize, Reservation.content_choices.key(value)]}, @reservation.content_choice), {}, class: 'form-select'%>
+      </div>
     </div>
   <% end %>
 
   <% if @reservation.end_time %>
-    <div>
-      <%= form.label :content_choice, style: "display: block" %>
-      <%= form.select :content_choice, options_for_select(Reservation.content_choices.map { |key, value| [key.humanize, Reservation.content_choices.key(value)]}, @reservation.content_choice) %>
-    </div>
-  <% end %>
-
-  <% if @reservation.end_time %>
-    <div>
-      <%= form.submit "Reserve Your Theater"%>
+    <div class="mt-3">
+      <%= form.submit "Reserve Your Theater", class: 'btn btn-primary' %>
     </div>
   <% end %>
 <% end %>

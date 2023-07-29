@@ -22,15 +22,15 @@
   <div class="row">
     <div class="col-md-3">
       <% if @reservation.start_time %>
-        <div>Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
+        <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
         <% if @reservation.end_time %>
-          <div>End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
-          <div><strong>Fill out the remainder of your reservation info!</strong></div>
+          <div>2. End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
+          <div><strong>3. Fill out the remainder of your reservation info.</strong></div>
         <% else %>
-          <div><strong>Select an available time for the end of your reservation.</strong></div>
+          <div><strong>2. Select an available time for the end of your reservation.</strong></div>
         <% end %>
       <% else %>
-        <div><strong>Select an available time for the start of your reservation.</strong></div>
+        <div><strong>1. Select an available time for the start of your reservation.</strong></div>
       <% end %></strong>
 
       <%= render "form", reservation: @reservation %>

@@ -31,8 +31,11 @@
   <% end %>
 
   <% if @reservation.end_time %>
-    <div class="mt-3">
-      <%= form.submit "Reserve Your Theater", class: 'btn btn-primary' %>
+    <div class="d-flex justify-content-end mt-3">
+      <button type="submit" class="btn btn-primary">
+        Continue to Payment 
+        <%= content_tag(:i, '', class: 'fa-solid fa-arrow-right', style: 'color: #ffffff;') %>
+      </button>
     </div>
   <% end %>
 <% end %>

@@ -11,8 +11,9 @@
   </div>
 <% end %>
 
-
-<h1>New reservation</h1>
+<div class="col-md-6 offset-md-3 mt-4">
+  <h1>Make a reservation</h1>
+</div>
 
 <div>
   Current Time: <%= Time.current.strftime("%l:%M %p %b %d") %>
@@ -20,31 +21,27 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-6 offset-md-3">
       <% if @reservation.start_time %>
         <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
         <% if @reservation.end_time %>
           <div>2. End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
-          <div><strong>3. Fill out the remainder of your reservation info.</strong></div>
+          <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
+          <div class="mt-2"><strong>3. Fill out the remainder of your reservation.</strong></div>
+          <div>
+            <%= render "form", reservation: @reservation %>
+          </div>
         <% else %>
           <div><strong>2. Select an available time for the end of your reservation.</strong></div>
+          <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
         <% end %>
       <% else %>
         <div><strong>1. Select an available time for the start of your reservation.</strong></div>
+        <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
       <% end %></strong>
-
-      <%= render "form", reservation: @reservation %>
-    </div>
-    <div class="col-md-9">
-      <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
     </div>
   </div>
 </div>
-
-
-
-
-
 
 <br>
 

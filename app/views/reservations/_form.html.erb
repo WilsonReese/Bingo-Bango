@@ -24,7 +24,6 @@
       </div>
       <div class="col-md-9">
         <%= form.label :content_choice, class: 'form-label' %>
-        <%#= form.select :content_choice, options_for_select(Reservation.content_choices.map { |key, value| [key.humanize, Reservation.content_choices.key(value)]}, @reservation.content_choice), {}, class: 'form-select'%>
         <%= form.select :content_choice, options_for_select(Reservation.content_choices.map { |key, _| [Reservation.new(content_choice: key).content_choice_display, key] }, @reservation.content_choice), {}, class: 'form-select' %>
       </div>
     </div>

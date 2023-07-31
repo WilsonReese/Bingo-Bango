@@ -21,6 +21,10 @@ class ReservationsController < ApplicationController
     if @reservation.start_time.nil?
       if params[:date].present?
         @selected_date = Date.parse(params[:date])
+        if @selected_date < Date.current
+          flash.now[:alert] = "Unless you have a time machine, reservations cannot be made for the past."
+          @selected_date = Date.current
+        end
       else
         @selected_date = Date.current
       end

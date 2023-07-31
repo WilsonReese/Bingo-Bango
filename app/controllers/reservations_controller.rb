@@ -18,10 +18,14 @@ class ReservationsController < ApplicationController
     @reservation.start_time = params[:start_time]
     @reservation.end_time = params[:end_time]
     @reservation.theater_id = params[:theater_id]
-    if params[:date].present?
-      @selected_date = Date.parse(params[:date])
+    if @reservation.start_time.nil?
+      if params[:date].present?
+        @selected_date = Date.parse(params[:date])
+      else
+        @selected_date = Date.current
+      end
     else
-      @selected_date = Date.current
+      @selected_date = @reservation.start_time.to_date
     end
   end
 

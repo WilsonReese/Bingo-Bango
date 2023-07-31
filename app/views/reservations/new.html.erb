@@ -19,6 +19,14 @@
   Current Time: <%= Time.current.strftime("%l:%M %p %b %d") %>
 </div>
 
+<div class="d-flex justify-content-center mt-3">
+  <%= form_tag(new_reservation_path, method: :get) do %>
+    <%= label_tag "Select Date: " %>
+    <%= date_field_tag :date, @selected_date %>
+    <%= submit_tag "Show Reservations", class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
 <!-- If I get stuck search ChatGPT for Okay, this updated the url and use those 
 This got it so that I could get a date in the URL, but it was blocking off the times for the reservations for every single date
 It also wouldn't show the options for today's date which makes me think there was some sort of timezone issue -->
@@ -27,7 +35,7 @@ It also wouldn't show the options for today's date which makes me think there wa
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <% if @reservation.start_time %>
-        <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
+        <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p %b %d %z") if @reservation.start_time %> </div>
         <% if @reservation.end_time %>
           <div>2. End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
           <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
@@ -41,7 +49,7 @@ It also wouldn't show the options for today's date which makes me think there wa
         <% end %>
       <% else %>
         <div><strong>1. Select an available time for the start of your reservation.</strong></div>
-        <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
+        <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id, date: @selected_date %>
       <% end %></strong>
     </div>
   </div>

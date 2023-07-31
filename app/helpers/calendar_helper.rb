@@ -1,5 +1,5 @@
 module CalendarHelper
-  def reservation_button_text(reservation, theater, time, next_time)
+  def reservation_button_text(reservation, theater, time, next_time, date)
     theater_id = reservation.theater_id
     start_time = reservation.start_time
     end_time = reservation.end_time
@@ -7,7 +7,7 @@ module CalendarHelper
     content_tag(:div, class: 'd-flex justify-content-center align-items-center', style: 'height: 100%;') do
       if time < Time.current # interval is after current time
         unavailable_button
-      elsif !theater.interval_reserved?(time.hour, time.min / 15) # interval does not have a reservation already
+      elsif !theater.interval_reserved?(time.hour, time.min / 15, date) # interval does not have a reservation already
         if !start_time && !end_time # start and end time not selected
           link_to new_reservation_path(start_time: time, theater_id: theater.id) do
             selectable_start_button(time)

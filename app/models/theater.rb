@@ -16,10 +16,10 @@ class Theater < ApplicationRecord
     self.reservations.where(start_time: date.beginning_of_day..date.end_of_day)
   end
 
-  def interval_reserved?(hour, quarter)
-    start_time = Time.current.change(hour: hour, min: quarter * 15)
+  def interval_reserved?(hour, quarter, date)
+    start_time = date.in_time_zone.change(hour: hour, min: quarter * 15)
     end_time = start_time + 15.minutes
-
+  
     reservations.where("start_time < ? AND end_time > ?", end_time, start_time).exists?
   end
 

@@ -3,7 +3,7 @@
   <p>Current Time: <%= Time.current.strftime("%l:%M %p") %></p>
 
   <% if current_user == nil %>
-    <p>Sign in to make reservation</p>
+    <p>Sign in to make a reservation</p>
   <% else %>
     <% if current_user.user_type == "standard" %>
       <%= link_to "New reservation", new_reservation_path %>

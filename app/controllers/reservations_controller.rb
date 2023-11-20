@@ -18,6 +18,19 @@ class ReservationsController < ApplicationController
     @reservation.start_time = params[:start_time]
     @reservation.end_time = params[:end_time]
     @reservation.theater_id = params[:theater_id]
+    if @reservation.start_time.nil?
+      if params[:date].present?
+        @selected_date = Date.parse(params[:date])
+        if @selected_date < Date.current
+          flash.now[:alert] = "Unless you have a time machine, reservations cannot be made for the past."
+          @selected_date = Date.current
+        end
+      else
+        @selected_date = Date.current
+      end
+    else
+      @selected_date = @reservation.start_time.to_date
+    end
   end
 
   # GET /reservations/1/edit

@@ -47,41 +47,17 @@ class Reservation < ApplicationRecord
     start_time >= Time.current
   end
 
-  # def overlaps_with_interval?(hour, quarter)
-  #   start_date = start_time.to_date
-  #   end_date = end_time.to_date
-  
-  #   start_time_hour = start_time.hour
-  #   start_time_quarter = (start_time.min / 15).to_i
-  
-  #   end_time_hour = end_time.hour
-  #   end_time_quarter = (end_time.min / 15).to_i
-  
-  #   if start_date == end_date
-  #     return (start_time_hour == hour && start_time_quarter <= quarter && quarter < end_time_quarter)
-  #   else
-  #     return (
-  #       (start_time_hour == hour && start_time_quarter <= quarter) ||
-  #       (end_time_hour == hour && end_time_quarter > quarter) ||
-  #       (start_time_hour < hour && hour < end_time_hour)
-  #     )
-  #   end
-  # end
-
-  def selected_start_time?(hour, quarter)
-    start_time_hour = start_time.hour
-    start_time_quarter = (start_time.min / 15).to_i
-
-    hour == start_time_hour && quarter == start_time_quarter
-  end
-
-  def selected_end_time?(hour, quarter)
-    end_time_hour = end_time.hour
-    end_time_quarter = (end_time.min / 15).to_i - 1
-    end_time_hour -= 1 if end_time_quarter == -1
-    end_time_quarter = 3 if end_time_quarter == -1
-
-    hour == end_time_hour && quarter == end_time_quarter
+  def content_choice_display
+    case content_choice
+    when 'byoc'
+      'BYOC - Bring Your Own Content'
+    when 'physical'
+      'Physical'
+    when 'new_release'
+      'New Release'
+    else
+      'Unknown'
+    end
   end
 
   private

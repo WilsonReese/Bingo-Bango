@@ -11,40 +11,49 @@
   </div>
 <% end %>
 
-
-<h1>New reservation</h1>
+<div class="col-md-6 offset-md-3 mt-4">
+  <h1>Make a reservation</h1>
+</div>
 
 <div>
   Current Time: <%= Time.current.strftime("%l:%M %p %b %d") %>
 </div>
 
+<div class="d-flex justify-content-center mt-3 mb-3">
+  <%= form_tag(new_reservation_path, method: :get) do %>
+    <%= label_tag "Select Date: " %>
+    <%= date_field_tag :date, @selected_date %>
+    <%= submit_tag "See Availability", class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .8rem;'%>
+  <% end %>
+</div>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-      <% if @reservation.start_time %>
-        <div>Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
-        <% if @reservation.end_time %>
-          <div>End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
-          <div><strong>Fill out the remainder of your reservation info!</strong></div>
-        <% else %>
-          <div><strong>Select an available time for the end of your reservation.</strong></div>
-        <% end %>
+    <div class="col-md-6 offset-md-3">
+      <% if @selected_date < Date.current %>
+        ADD AN ERROR MESSAGE SO THAT THEY HAVE TO PICK A FUTURE DATE
       <% else %>
-        <div><strong>Select an available time for the start of your reservation.</strong></div>
-      <% end %></strong>
-
-      <%= render "form", reservation: @reservation %>
-    </div>
-    <div class="col-md-9">
-      <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
+        <% if @reservation.start_time %>
+          <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p %b %d %z") if @reservation.start_time %> </div>
+          <% if @reservation.end_time %>
+            <div>2. End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
+            <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
+            <div class="mt-2 mb-2"><strong>3. Fill out the remainder of your reservation.</strong></div>
+            <div>
+              <%= render "form", reservation: @reservation %>
+            </div>
+          <% else %>
+            <div><strong>2. Select an available time for the end of your reservation.</strong></div>
+            <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>
+          <% end %>
+        <% else %>
+          <div><strong>1. Select an available time for the start of your reservation.</strong></div>
+          <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id, date: @selected_date %>
+        <% end %></strong>
+      <% end %>
     </div>
   </div>
 </div>
-
-
-
-
-
 
 <br>
 

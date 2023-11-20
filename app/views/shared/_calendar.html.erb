@@ -29,8 +29,9 @@
     <tbody >
       <% (10..23).each do |hour| %>
         <% (0..3).each do |quarter| %>
-          <% time = Time.current.change(hour: hour, min: quarter * 15) %>
+          <% time = @selected_date.in_time_zone.change(hour: hour, min: quarter * 15) %>
           <% next_time = time + 15.minutes %>
+          <% next if time < Time.current %>
           <tr>
             <th scope="row">
               <%= time.strftime("%l:%M %p - ") %>
@@ -38,7 +39,7 @@
             </th>
             <% @theaters.each do |theater| %>
               <td>
-                <%= reservation_button_text(@reservation, theater, time, next_time) %>
+                <%= reservation_button_text(@reservation, theater, time, next_time, @selected_date) %>
               </td>
             <% end %>
           </tr>

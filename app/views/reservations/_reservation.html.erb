@@ -12,6 +12,7 @@
           <li><strong>Content Choice:</strong> <%= reservation.content_choice.humanize%></li>
           <li><strong>Theater:</strong> <%= reservation.theater_id %></li>
           <li><strong>User:</strong> <%= reservation.user_id %></li>
+          <li><strong>Status:</strong> <%= reservation.status %></li>
         </ul>
       </p>
       <% if reservation.future_reservation? %>

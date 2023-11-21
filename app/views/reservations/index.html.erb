@@ -51,32 +51,40 @@
               Theater
             </th>
             <th>
+              User (Need names)
+            </th>
+            <th>
               Start DateTime
             </th>
             <th>
               End DateTime
             </th>
             <th>
-              Link
+              Edit
             </th>
           </tr>
         </thead>
-        <% @reservations.each do |reservation| %>
-          <tr>
-            <td>
-              Theater <%= reservation.theater.id %>
-            </td>
-            <td>
-              <%= reservation.start_time %>
-            </td>
-            <td>
-              <%= reservation.end_time %>
-            </td>
-            <td>
-              <%= button_to reservation, method: :delete %>
-            </td>
-          </tr>
-        <% end %>
+        <tbody>
+          <% @reservations.each do |reservation| %>
+            <tr>
+              <td>
+                Theater <%= reservation.theater.id %>
+              </td>
+              <td>
+                User <%= reservation.user.id%>
+              </td>            
+              <td>
+                <%= reservation.start_time.strftime("%b %d, %Y - %l:%M %p") %>
+              </td>
+              <td>
+                <%= reservation.end_time.strftime("%b %d, %Y - %l:%M %p") %>
+              </td>
+              <td>
+                <%= link_to "Update Reservation", edit_reservation_path(reservation), class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;'%>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     <% end %>
   <% end %>

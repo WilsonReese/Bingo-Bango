@@ -17,6 +17,20 @@
       <% end %>
       <% (10..23).each do |hour| %>
         <% (0..3).each do |quarter| %>
+          <% time = @selected_datetime.in_time_zone.change(hour: hour, min: quarter * 15) %>
+          <% next_time = time + 15.minutes %>
+          <tr>
+            <th scope="row">
+              <%= time.strftime("%l:%M %p - ") %>
+              <%= next_time.strftime("%l:%M %p") %>
+            </th>
+            <% @theaters.each do |theater| %>
+              <td>
+                Test
+              </td>
+            <% end %>
+
+          </tr>
         <% end %>
       <% end %>
     </tbody>

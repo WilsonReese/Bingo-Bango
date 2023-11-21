@@ -13,8 +13,6 @@ class ReservationsController < ApplicationController
     else
       @selected_date = Date.current
       @selected_datetime = @selected_date.to_time.in_time_zone('Central Time (US & Canada)')
-      # Fetch reservations for today
-      # @reservations = Reservation.all
     end
     @reservations_on_date = Reservation.where("DATE(start_time AT TIME ZONE 'UTC' AT TIME ZONE 'America/Chicago') = ?", @selected_datetime)
   end

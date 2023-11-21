@@ -39,7 +39,45 @@
       <% end %>
 
     <% elsif current_user.user_type == "admin" %>
-      <%# ADMIN VIEW %>
+      <h3>Admin View</h2>
+      <p>Approach:</p>
+      <p>Make it like the new reservations thing, but instead of buttons it shows the name on the reservation</p>
+      <p>Able to click into the reservation</p>
+
+      <table class="table-calendar">
+        <thead>
+          <tr>
+            <th>
+              Theater
+            </th>
+            <th>
+              Start DateTime
+            </th>
+            <th>
+              End DateTime
+            </th>
+            <th>
+              Link
+            </th>
+          </tr>
+        </thead>
+        <% @reservations.each do |reservation| %>
+          <tr>
+            <td>
+              Theater <%= reservation.theater.id %>
+            </td>
+            <td>
+              <%= reservation.start_time %>
+            </td>
+            <td>
+              <%= reservation.end_time %>
+            </td>
+            <td>
+              <%= button_to reservation, method: :delete %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
   <% end %>
 </div>

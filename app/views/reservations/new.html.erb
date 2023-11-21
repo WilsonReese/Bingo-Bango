@@ -34,7 +34,7 @@
         ADD AN ERROR MESSAGE SO THAT THEY HAVE TO PICK A FUTURE DATE
       <% else %>
         <% if @reservation.start_time %>
-          <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p %b %d %z") if @reservation.start_time %> </div>
+          <div>1. Start Time: <%= @reservation.start_time.strftime("%l:%M %p") if @reservation.start_time %> </div>
           <% if @reservation.end_time %>
             <div>2. End Time: <%= @reservation.end_time.strftime("%l:%M %p") if @reservation.end_time %> </div>
             <%= render "shared/calendar", start_time: @reservation.start_time, end_time: @reservation.end_time, theater_id: @reservation.theater_id  %>

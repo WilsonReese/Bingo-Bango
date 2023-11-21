@@ -1,0 +1,42 @@
+<table class="table-calendar">
+  <thead>
+    <tr>
+      <th>
+        Theater
+      </th>
+      <th>
+        User (Need names)
+      </th>
+      <th>
+        Start DateTime
+      </th>
+      <th>
+        End DateTime
+      </th>
+      <th>
+        Edit
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |reservation| %>
+      <tr>
+        <td>
+          Theater <%= reservation.theater.id %>
+        </td>
+        <td>
+          User <%= reservation.user.id%>
+        </td>            
+        <td>
+          <%= reservation.start_time.strftime("%b %d, %Y - %l:%M %p") %>
+        </td>
+        <td>
+          <%= reservation.end_time.strftime("%b %d, %Y - %l:%M %p") %>
+        </td>
+        <td>
+          <%= link_to "See Reservation", reservation_path(reservation), class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;'%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

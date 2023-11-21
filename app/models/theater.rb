@@ -27,4 +27,11 @@ class Theater < ApplicationRecord
     reservations.where("start_time >= ?", time).order(:start_time).first
   end
 
+  def find_reservation_for_interval(hour, quarter, date)
+    start_time = date.in_time_zone.change(hour: hour, min: quarter * 15)
+    end_time = start_time + 15.minutes
+
+    reservations.find_by("start_time < ? AND end_time > ?", end_time, start_time)
+  end
+
 end

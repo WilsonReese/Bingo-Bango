@@ -26,10 +26,14 @@
             </th>
             <% @theaters.each do |theater| %>
               <td>
-                Test
+                <% if !theater.interval_reserved?(time.hour, time.min / 15, @selected_date) %>
+                  Available
+                <% else %>
+                  <% reservation = theater.find_reservation_for_interval(time.hour, time.min / 15, @selected_date) %>
+                  <%= link_to "#{reservation.start_time.strftime("%l:%M %p - ")} #{reservation.end_time.strftime("%l:%M %p")}" , reservation_path(reservation), class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;'%>
+                <% end %>
               </td>
             <% end %>
-
           </tr>
         <% end %>
       <% end %>

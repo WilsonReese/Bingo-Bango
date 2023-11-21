@@ -44,8 +44,25 @@
       <p>Make it like the new reservations thing, but instead of buttons it shows the name on the reservation</p>
       <p>Able to click into the reservation</p>
 
-    <%= render "admin_table" %>
-    
+    <div class="d-flex justify-content-center mt-3 mb-3">
+      <%= form_tag(reservations_path, method: :get) do %>
+        <%= label_tag "Select Date: " %>
+        <%= date_field_tag :date, @selected_date %>
+        <%= submit_tag "See Availability", class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .8rem;'%>
+      <% end %>
+    </div>
+
+    <h4>
+      Table
+    </h4>    
+    <div><%= render "admin_table" %></div>
+    <div class="mt-4">
+      <h4 style="mt-4">
+        Schedule
+      </h4>
+    </div>
+
+    <div><%= render "schedule" %></div>
     
     <% end %>
   <% end %>

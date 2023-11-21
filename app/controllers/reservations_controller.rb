@@ -4,8 +4,19 @@ class ReservationsController < ApplicationController
 
   # GET /reservations or /reservations.json
   def index
-    @reservations = Reservation.all
     @theaters = Theater.all
+    @reservations = Reservation.all.order(start_time: :desc)
+    if params[:date].present?
+      @selected_date = Date.parse(params[:date])
+      @selected_datetime = @selected_date.to_time.in_time_zone('Central Time (US & Canada)')
+      # Fetch reservations only for the selected date
+    else
+      @selected_date = Date.current
+      @selected_datetime = @selected_date.to_time.in_time_zone('Central Time (US & Canada)')
+      # Fetch reservations for today
+      # @reservations = Reservation.all
+    end
+    @reservations_on_date = Reservation.where("DATE(start_time AT TIME ZONE 'UTC' AT TIME ZONE 'America/Chicago') = ?", @selected_datetime)
   end
 
   # GET /reservations/1 or /reservations/1.json

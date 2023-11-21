@@ -10,11 +10,6 @@
     </thead>
 
     <tbody>
-      <% if @reservations_on_date.present? %>
-        <% @reservations_on_date.each do |reservation| %>
-          <%= reservation.start_time.strftime("%b %d, %Y - %l:%M %p") %>
-        <% end %>
-      <% end %>
       <% (10..23).each do |hour| %>
         <% (0..3).each do |quarter| %>
           <% time = @selected_datetime.in_time_zone.change(hour: hour, min: quarter * 15) %>

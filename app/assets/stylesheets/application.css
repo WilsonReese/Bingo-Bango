@@ -47,5 +47,5 @@
 
 .table-calendar td {
   height: 8px; /* Adjust the height of the data cells */
-  align-items: center; /* Center the content vertically */
+  text-align: center; /* Center the content vertically */
 }

@@ -34,7 +34,9 @@
           <%= reservation.end_time.strftime("%b %d, %Y - %l:%M %p") %>
         </td>
         <td>
-          <%= link_to "See Reservation", reservation_path(reservation), class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;'%>
+          <div class="d-flex justify-content-center align-items-center">
+            <%= link_to "See Reservation", reservation_path(reservation), class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .5rem;'%>
+          </div>
         </td>
       </tr>
     <% end %>

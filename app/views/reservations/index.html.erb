@@ -1,6 +1,5 @@
 <div class="mt-4">
   <h1>Reservations</h1>
-  <p>Current Time: <%= Time.current.strftime("%l:%M %p") %></p>
 
   <% if current_user == nil %>
     <p>Sign in to make a reservation</p>
@@ -39,34 +38,36 @@
       <% end %>
 
     <% elsif current_user.user_type == "admin" %>
-      <h3>Admin View</h2>
-      <p>Approach:</p>
-      <p>Make it like the new reservations thing, but instead of buttons it shows the name on the reservation</p>
-      <p>Able to click into the reservation</p>
+      <div class="mt-4">
+        <h3>Admin View</h2>
+      </div>
 
-    <div class="mt-4">
-      <h4>
-        Schedule
-      </h4>
-    </div>
 
-    <div class="d-flex justify-content-center mt-3 mb-3">
-      <%= form_tag(reservations_path, method: :get) do %>
-        <%= label_tag "Select Date: " %>
-        <%= date_field_tag :date, @selected_date %>
-        <%= submit_tag "See Availability", class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .8rem;'%>
-      <% end %>
-    </div>
+      <div class="mt-4">
+        <h4>
+          Schedule
+        </h4>
+      </div>
 
-    <div><%= render "schedule" %></div>
+      <div class="d-flex justify-content-center mt-3 mb-3">
+        <%= form_tag(reservations_path, method: :get) do %>
+          <%= label_tag "Select Date: " %>
+          <%= date_field_tag :date, @selected_date %>
+          <%= submit_tag "See Availability", class: 'btn btn-primary', style: '--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .8rem;'%>
+        <% end %>
+      </div>
 
-    <div class="mt-4">
-      <h4>
-        Table
-      </h4>
-    </div>    
-    <div><%= render "admin_table" %></div>
-    
+      <div><%= render "schedule" %></div>
+
+      <div class="mt-4">
+        <h4>
+          Table
+        </h4>
+      </div>    
+      <div class="mb-4">
+        <%= render "admin_table" %>
+      </div>
+      
     <% end %>
   <% end %>
 </div>
